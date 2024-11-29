@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Transport Updates</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        section {
+            margin: 40px 0;
+        }
+
+        h2 {
+            text-align: center;
+            background: linear-gradient(135deg, #ff5f6d, #ffc371);
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            font-size: 1.8em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1em;
+            transition: background 0.3s ease;
+        }
+
+        th {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            text-transform: uppercase;
+            border-bottom: 2px solid #444;
+        }
+
+        td {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        tr:hover td {
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+
+        /* Subtle Animation */
+        table {
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Live Transport Updates</h1>
+    <div class="container">
+        <!-- Bus Schedule -->
+        <section>
+            <h2>Bus Schedule</h2>
+            <table id="busTable">
+                <thead>
+                    <tr>
+                        <th>Route</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Bus data will update dynamically -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Train Schedule -->
+        <section>
+            <h2>Train Schedule</h2>
+            <table id="trainTable">
+                <thead>
+                    <tr>
+                        <th>Train</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Train data will update dynamically -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Metro Schedule -->
+        <section>
+            <h2>Metro Routes</h2>
+            <table id="metroTable">
+                <thead>
+                    <tr>
+                        <th>Route</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Metro data will update dynamically -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Bike Schedule -->
+        <section>
+            <h2>Bike Schedule</h2>
+            <table id="bikeTable">
+                <thead>
+                    <tr>
+                        <th>Route</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Bike data will update dynamically -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Car Schedule -->
+        <section>
+            <h2>Car Schedule</h2>
+            <table id="carTable">
+                <thead>
+                    <tr>
+                        <th>Route</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Car data will update dynamically -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        // Simulated live data updates
+        const busData = [
+            { route: "B1", from: "Downtown", to: "Uptown", departure: "08:00 AM", arrival: "08:45 AM" },
+            { route: "B2", from: "City Center", to: "Airport", departure: "09:00 AM", arrival: "09:50 AM" }
+        ];
+
+        const trainData = [
+            { train: "Express 101", from: "Station A", to: "Station B", departure: "07:30 AM", arrival: "08:30 AM" },
+            { train: "Local 202", from: "Station C", to: "Station D", departure: "08:45 AM", arrival: "10:00 AM" }
+        ];
+
+        const metroData = [
+            { route: "Blue Line", from: "Central", to: "Park Avenue", departure: "06:30 AM", arrival: "07:10 AM" },
+            { route: "Green Line", from: "Airport", to: "Downtown", departure: "07:00 AM", arrival: "07:40 AM" }
+        ];
+
+        const bikeData = [
+            { route: "Bike 101", from: "Park", to: "City Center", departure: "08:15 AM", arrival: "08:45 AM" },
+            { route: "Bike 102", from: "Station A", to: "Downtown", departure: "09:30 AM", arrival: "10:00 AM" }
+        ];
+
+        const carData = [
+            { route: "Car 301", from: "Uptown", to: "City Center", departure: "07:00 AM", arrival: "07:45 AM" },
+            { route: "Car 302", from: "Airport", to: "Downtown", departure: "10:00 AM", arrival: "10:40 AM" }
+        ];
+
+        // Function to populate data into tables
+        function populateTable(tableId, data) {
+            const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+            table.innerHTML = ""; // Clear table
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                Object.values(row).forEach(cell => {
+                    const td = document.createElement('td');
+                    td.textContent = cell;
+                    tr.appendChild(td);
+                });
+                table.appendChild(tr);
+            });
+        }
+
+        // Initial population of data
+        populateTable('busTable', busData);
+        populateTable('trainTable', trainData);
+        populateTable('metroTable', metroData);
+        populateTable('bikeTable', bikeData);
+        populateTable('carTable', carData);
+
+        // Simulating live updates
+        setInterval(() => {
+            busData.push({ route: `B${busData.length + 1}`, from: "New Stop", to: "Another Stop", departure: "10:00 AM", arrival: "10:45 AM" });
+            trainData.push({ train: `Express ${100 + trainData.length}`, from: "New Station", to: "End Station", departure: "10:00 AM", arrival: "11:00 AM" });
+            bikeData.push({ route: `Bike ${bikeData.length + 1}`, from: "Place A", to: "Place B", departure: "10:15 AM", arrival: "10:45 AM" });
+            carData.push({ route: `Car ${300 + carData.length}`, from: "Place C", to: "Place D", departure: "11:00 AM", arrival: "11:45 AM" });
+
+            populateTable('busTable', busData);
+            populateTable('trainTable', trainData);
+            populateTable('metroTable', metroData);
+            populateTable('bikeTable', bikeData);
+            populateTable('carTable', carData);
+        }, 60000); // Update every minute
+    </script>
+</body>
+</html>

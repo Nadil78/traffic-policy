@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Bus Schedule</title>
+    <style>
+        /* Body Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Schedule Container */
+        .schedule-container {
+            width: 90%;
+            max-width: 800px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        /* Header Styling */
+        .schedule-header {
+            background: linear-gradient(90deg, #007bff, #6610f2);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .schedule-header h1 {
+            font-size: 28px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        /* Filter Input */
+        .filter-container {
+            padding: 15px;
+            text-align: center;
+            background: #f9f9f9;
+        }
+
+        .filter-container input {
+            padding: 12px;
+            width: 80%;
+            max-width: 600px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .filter-container input:focus {
+            border-color: #007bff;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+        }
+
+        th {
+            background: #007bff;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        tr {
+            transition: all 0.3s ease;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: rgba(0, 123, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        td {
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .filter-container input {
+                width: 100%;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="schedule-container">
+        <!-- Header -->
+        <div class="schedule-header">
+            <h1>Advanced Bus Schedule</h1>
+        </div>
+        <!-- Search Filter -->
+        <div class="filter-container">
+            <input type="text" id="searchInput" onkeyup="filterSchedule()" placeholder="Search by route, time, or bus number...">
+        </div>
+        <!-- Schedule Table -->
+        <table id="busScheduleTable">
+            <thead>
+                <tr>
+                    <th>Bus Number</th>
+                    <th>Route</th>
+                    <th>Departure Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>101</td>
+                    <td>City Center to Downtown</td>
+                    <td>08:00 AM</td>
+                </tr>
+                <tr>
+                    <td>102</td>
+                    <td>City Center to Airport</td>
+                    <td>09:30 AM</td>
+                </tr>
+                <tr>
+                    <td>103</td>
+                    <td>Downtown to Harbor</td>
+                    <td>10:15 AM</td>
+                </tr>
+                <tr>
+                    <td>104</td>
+                    <td>Harbor to Airport</td>
+                    <td>12:45 PM</td>
+                </tr>
+                <tr>
+                    <td>105</td>
+                    <td>Downtown to University</td>
+                    <td>02:00 PM</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // JavaScript: Search Filter
+        function filterSchedule() {
+            let input = document.getElementById('searchInput');
+            let filter = input.value.toUpperCase();
+            let table = document.getElementById('busScheduleTable');
+            let tr = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < tr.length; i++) {
+                let tds = tr[i].getElementsByTagName('td');
+                let found = false;
+                for (let j = 0; j < tds.length; j++) {
+                    if (tds[j]) {
+                        let txtValue = tds[j].textContent || tds[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                tr[i].style.display = found ? '' : 'none';
+            }
+        }
+    </script>
+</body>
+</html>
+
+

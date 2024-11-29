@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro Route Schedule</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #e0f7fa, #e1bee7);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Schedule Container */
+        .metro-container {
+            width: 90%;
+            max-width: 1000px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .metro-header {
+            background: linear-gradient(90deg, #673ab7, #512da8);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .metro-header h1 {
+            margin: 0;
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+
+        /* Search Filter */
+        .search-container {
+            padding: 15px;
+            text-align: center;
+            background: #f3e5f5;
+        }
+
+        .search-container input {
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            outline: none;
+            width: 80%;
+            max-width: 600px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-container input:focus {
+            border-color: #673ab7;
+            box-shadow: 0 4px 10px rgba(103, 58, 183, 0.3);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #673ab7;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        tr {
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: rgba(103, 58, 183, 0.1);
+            transform: scale(1.02);
+        }
+
+        td {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .search-container input {
+                width: 100%;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="metro-container">
+        <!-- Header -->
+        <div class="metro-header">
+            <h1>Metro Route Schedule</h1>
+        </div>
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="searchMetro" onkeyup="filterRoutes()" placeholder="Search by route, station, or time...">
+        </div>
+        <!-- Table -->
+        <table id="metroTable">
+            <thead>
+                <tr>
+                    <th>Route</th>
+                    <th>Origin Station</th>
+                    <th>Destination Station</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Blue Line</td>
+                    <td>Central Station</td>
+                    <td>Park Avenue</td>
+                    <td>06:30 AM</td>
+                    <td>07:10 AM</td>
+                </tr>
+                <tr>
+                    <td>Green Line</td>
+                    <td>Airport Station</td>
+                    <td>Downtown</td>
+                    <td>07:00 AM</td>
+                    <td>07:40 AM</td>
+                </tr>
+                <tr>
+                    <td>Red Line</td>
+                    <td>Harbor View</td>
+                    <td>Uptown</td>
+                    <td>08:15 AM</td>
+                    <td>09:00 AM</td>
+                </tr>
+                <tr>
+                    <td>Yellow Line</td>
+                    <td>North Station</td>
+                    <td>Central Station</td>
+                    <td>08:45 AM</td>
+                    <td>09:30 AM</td>
+                </tr>
+                <tr>
+                    <td>Orange Line</td>
+                    <td>Summit Station</td>
+                    <td>South Gate</td>
+                    <td>09:30 AM</td>
+                    <td>10:15 AM</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Search Filter
+        function filterRoutes() {
+            let input = document.getElementById("searchMetro");
+            let filter = input.value.toUpperCase();
+            let table = document.getElementById("metroTable");
+            let tr = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < tr.length; i++) {
+                let tds = tr[i].getElementsByTagName("td");
+                let found = false;
+
+                for (let j = 0; j < tds.length; j++) {
+                    if (tds[j]) {
+                        let txtValue = tds[j].textContent || tds[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+
+                tr[i].style.display = found ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>

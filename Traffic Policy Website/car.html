@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Schedule</title>
+    <style>
+        /* Body Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e3ffe7, #d9e7ff);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Schedule Container */
+        .schedule-container {
+            width: 90%;
+            max-width: 900px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        /* Header Styling */
+        .schedule-header {
+            background: linear-gradient(90deg, #f4c430, #f1a800); /* Yellow gradient */
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Title Styling */
+        .schedule-header h1 {
+            font-size: 28px;
+            margin: 0;
+            text-transform: uppercase;
+            color: #333; /* Dark color for the title */
+        }
+
+        /* New Yellow Accent Color */
+        .highlight-yellow {
+            color: #f4c430; /* Yellow color */
+        }
+
+        /* Filter Input */
+        .filter-container {
+            padding: 15px;
+            text-align: center;
+            background: #f9f9f9;
+        }
+
+        .filter-container input {
+            padding: 12px;
+            width: 80%;
+            max-width: 600px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Focus color when typing in the search */
+        .filter-container input:focus {
+            border-color: #f4c430;
+            box-shadow: 0 4px 8px rgba(244, 196, 48, 0.3);
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+        }
+
+        th {
+            background: #1E90FF; /* Blue header background */
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        tr {
+            transition: all 0.3s ease;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: rgba(40, 167, 69, 0.1);
+            transform: scale(1.02);
+        }
+
+        td {
+            color: #555;
+        }
+
+        /* Highlighting specific rows with yellow */
+        tr:nth-child(odd):hover {
+            background: #f4c430; /* Yellow background on hover for odd rows */
+            color: #fff; /* White text on hover */
+        }
+
+        td .highlight-yellow {
+            font-weight: bold;
+            color: #f4c430; /* Yellow color for specific text */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .filter-container input {
+                width: 100%;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="schedule-container">
+        <!-- Header -->
+        <div class="schedule-header">
+            <h1>Car Schedule</h1>
+        </div>
+        <!-- Search Filter -->
+        <div class="filter-container">
+            <input type="text" id="searchInput" onkeyup="filterSchedule()" placeholder="Search by car number, route, or time...">
+        </div>
+        <!-- Schedule Table -->
+        <table id="carScheduleTable">
+            <thead>
+                <tr>
+                    <th>Car Number</th>
+                    <th>Route</th>
+                    <th>Departure Station</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Station</th>
+                    <th>Arrival Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>501</td>
+                    <td class="highlight-yellow">City Loop</td>
+                    <td>Main Square</td>
+                    <td>07:00 AM</td>
+                    <td>Market Street</td>
+                    <td>07:30 AM</td>
+                </tr>
+                <tr>
+                    <td>502</td>
+                    <td>Park Express</td>
+                    <td class="highlight-yellow">Central Station</td>
+                    <td>08:30 AM</td>
+                    <td>City Park</td>
+                    <td>09:00 AM</td>
+                </tr>
+                <tr>
+                    <td>503</td>
+                    <td>Coastal Ride</td>
+                    <td>Seaside Station</td>
+                    <td class="highlight-yellow">10:00 AM</td>
+                    <td>Harbor Station</td>
+                    <td>10:45 AM</td>
+                </tr>
+                <tr>
+                    <td>504</td>
+                    <td>Mountain Path</td>
+                    <td>Downtown</td>
+                    <td>01:00 PM</td>
+                    <td class="highlight-yellow">Hilltop Station</td>
+                    <td>02:00 PM</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // JavaScript: Search Filter
+        function filterSchedule() {
+            let input = document.getElementById('searchInput');
+            let filter = input.value.toUpperCase();
+            let table = document.getElementById('carScheduleTable');
+            let tr = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < tr.length; i++) {
+                let tds = tr[i].getElementsByTagName('td');
+                let found = false;
+                for (let j = 0; j < tds.length; j++) {
+                    if (tds[j]) {
+                        let txtValue = tds[j].textContent || tds[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                tr[i].style.display = found ? '' : 'none';
+            }
+        }
+    </script>
+</body>
+</html>
